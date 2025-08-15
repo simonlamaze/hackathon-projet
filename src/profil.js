@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import '../css/styles.css'
 import { doc, getDoc,setDoc } from "firebase/firestore";
 import {getFirestore} from "firebase/firestore";
+import { createElement } from "react";
 
 //----//Fin des imports
 const firebaseConfig = {
@@ -101,7 +102,7 @@ searchInput.addEventListener("input", () => {
 }) ;
 
 
-
+// Fonction qui crée une requète d'un entraîneur à un élève
 async function sendRequest(fromId , toName , names){
   const userindex = names.indexOf(toName)
   const ids = await getUserids();
@@ -120,4 +121,101 @@ async function sendRequest(fromId , toName , names){
     alert("Souci dans la création de demande");
   }
 
+}
+//Fonction qui récupère l'ID d'un nom
+async function getId(name){
+  const ids =await getUserids();
+  const names = await getDisplayNames();
+  const idx = names.indefOf(name);
+  if (!idx) {
+    alert ("utilisateur non trouvé");
+    return;
+  }
+  return ids[idx];
+}
+
+//Fonction qui récupère le nom d'un Id
+async function getName(id){
+  const ids =await getUserids();
+  const names = await getDisplayNames();
+  const idx = ids.indefOf(id);
+  if (!idx) {
+    alert ("utilisateur non trouvé");
+    return;
+  }
+  return names[idx];
+}
+
+
+//Fonction qui rejette une demande
+async function rejectRequest(requestid){
+
+}
+
+//Fonction qui annule une demande
+async function cancelRequest(requestid){
+  
+}
+//Fonction qui accepte une demande
+async function acceptRequest(requestid){
+  
+}
+//Fonction qui récupère une liste des requètes recues en cours et les affiche
+async function showComingRequests(userId){
+  const snap = await getDoc(doc(db, "requests", "pending"));
+  if (snap.exists()) {
+  const data = snap.data();
+  const allArrays = Object.entries(data); //On récupère une liste de listes [ requestid , requestArray]
+  const rightArrays= allArrays.filter(sousListe => sousListe[1][1] === userId); // On filtre pour garder que celles qui nous intéressent
+  
+  const requestlist =document.getElementById("recieved-requests-list")
+  rightArrays.forEach(array => {
+    const requestId= array[0]; // l'ID de la demande
+    const issuername= getName(array[1][0]); // récupère le nom de celui qui a fait la demande
+
+      const requestline = document.createElement("p");
+      requestline.innerHTML= issuername + " voudrait pouvoir vous partager des fichiers";
+      requestlist.appendChild(requestline);
+      //Bouton pour accepter
+      const acceptline = document.createElement("button");
+      acceptline.innerHTML="Accepter la demande";
+      acceptline.addEventListener("click", acceptRequest(requestId));
+      requestlist.appendChild(requestline);
+      // Bouton pour refuser
+      const rejectline = document.createElement("button");
+      rejectline.innerHTML="Refuser la demande";
+      rejectline.addEventListener("click", rejectRequest(requestId));
+      requestlist.appendChild(requestline);
+      
+
+
+  });
+}
+}
+
+//Fonction qui récupère une liste des requètes envoyées en cours et les affiche
+async function showComingRequests(userId){
+  const snap = await getDoc(doc(db, "requests", "pending"));
+  if (snap.exists()) {
+  const data = snap.data();
+  const allArrays = Object.entries(data); //On récupère une liste de listes [ requestid , requestArray]
+  const rightArrays= allArrays.filter(sousListe => sousListe[1][1] === userId); // On filtre pour garder que celles qui nous intéressent
+  
+  const requestlist =document.getElementById("issued-requests-list")
+  rightArrays.forEach(array => {
+    const requestId= array[0]; // l'ID de la demande
+    const studentname= getName(array[1][1]); // récupère le nom de celui qui a fait la demande
+
+      const requestline = document.createElement("p");
+      requestline.innerHTML=  " vous voudriez partager des fichiers à"+ studentname ;
+      requestlist.appendChild(requestline);
+      // on rajoute un bouton pour annuler les demandes qu'on a envoyées
+      const acceptline = document.createElement("button");
+      acceptline.innerHTML="Annuler la demande";
+      acceptline.addEventListener("click", cancelRequest(requestId));
+      requestlist.appendChild(requestline);
+      
+
+  });
+}
 }
