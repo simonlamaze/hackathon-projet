@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>profil </title>
+</head>
+<body>
+    <header>
+  <h1>La Super App ! </h1>
+  
+  <div id="username-container">
+  <span id="username-display">NomUtilisateur</span>
+  <div id="user-menu" class="hidden">
+    <a href="main.html">Page principale</a>
+    <button id="logout-btn">Se déconnecter</button>
+  </div>
+</div>
+</header>
+<main>
+  <div>
+    <h1>Mes informations</h1>
+  <div id="user-info">
+    <p>Nom d'utilisateur: <span id="username-info">NomUtilisateur</span></p>
+    <p>Email: <span id="email-info"> EmailUtilisateur</span></p>
+    
+    <div id ='trainers_container'>
+        Entraîneurs:
+        <ul id="my_trainers" class="profile-lists"> 
+
+        </ul>
+    </div> 
+    <div id ='students_container'>
+        Élèves:
+        <ul id="students" class="profile-lists"> 
+
+        </ul>
+    </div> 
+    <br>
+    <button id = "requestbtn"> Demander un élève</button>
+    <div id="users-choice-container" class="hidden">
+      <input type="text" id="search" placeholder="rechercher un utilisateur" >
+      <div id ="suggestions"></div>
+    </div>
+
+  </div>
+  
+<br>
+<button id="username-change">Changer de nom d'utilisateur</button>
+</div>
+<div>
+  <div id="requests-container">
+    <p> Recieved requests:</p>
+    <div id="recieved-requests-list" class="profile-lists"> </div>
+
+    <p> Issued requests:</p>
+    <div id="issued-requests-list" class="profile-lists"> </div>
+  </div>
+</div>
+</main>
+<script type="module" src="/src/profil.js"></script>
+</body>
+</html>

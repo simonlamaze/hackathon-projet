@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <title>Essai</title>
+  
+</head>
+<body>
+  <header>
+  <h1>La Super App ! </h1>
+  
+  <div id="username-container">
+  <span id="username-display">NomUtilisateur</span>
+  <div id="user-menu" class="hidden">
+    <a href="profil.html">Mon profil</a>
+    <button id="logout-btn">Se déconnecter</button>
+  </div>
+</div>
+</header>
+
+<main>
+  <div class="boardcontainer">
+    <!-- informations, tags -->
+    <div class = "players" style="height: 20px">
+      <p id="whitePlayer">Joueur Blanc</p> <p id="blackPlayer" >Joueur Noir</p> 
+    </div>
+    <div id="board"></div>
+    <!-- Boutons sous l'échiquier -->
+    <div id="arrows">
+      <button class= "arrow" id="flip-board">⟳</button>
+      <button class="arrow" id="startarrow"> &lt;&lt; </button>      
+      <button class="arrow" id="leftarrow">  &lt; </button>
+      <button class="arrow" id="rightarrow"> &gt; </button>
+      <button class="arrow" id="endarrow"> &gt;&gt;</button>
+      
+    </div>
+    <!-- Affichage des variantes -->
+     <div id="variant-modal" class="modal hidden">
+  <div class="modal-content" id="variant-list">
+    
+    <ul id="variants"></ul>
+  </div>
+  </div>
+    
+    
+    <input type="file" id="loadbtn" accept=".pgn" placeholder="Charger un fichier" class="commands"/>
+    
+
+    
+</div>
+    
+  </div>
+<!-- Zone où il est possible de coller un PGn, et où les PGN sont visualisés -->
+  <textarea id="text-zone" placeholder ="Coller un PGN ici" ></textarea>
+    
+  </textarea>
+  <div id="files">
+    <div id = "files-container"> Mes Fichiers PGN</div>
+    
+  
+  <br>
+  <!-- Différentes commandes , charger fichiers, mode révision -->
+    <div id="file-commands">
+      <button id="reset-btn" class="commands" disabled >Enlever le fichier</button>
+      <button id="review-mode-btn" class="commands" disabled>
+       Mode révision
+        </button>
+      <button id="quit-review-mode-btn" class="commands" disabled>Quitter mode Révision</button>
+    </div>
+    <div id="review-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Choisis ta couleur</h2>
+    <button class="color-btn" data-color="white">white</button>
+    <button class="color-btn" data-color="black">black</button>
+    <button id="close-modal">Annuler</button>
+  </div>
+  </div>
+</main>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
